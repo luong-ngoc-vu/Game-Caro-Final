@@ -100,10 +100,10 @@ router.get('/me', passport.authenticate('jwt', {session: false}), async (req, re
 });
 
 router.post('/me/update', passport.authenticate('jwt', {session: false}), async (req, res) => {
-    const username = req.user.username;
     const email = req.user.email;
-    const dbUser = await User.findOne({email});
+    const username = req.body.username;
 
+    const dbUser = await User.findOne({email});
     dbUser.username = username;
     try {
         await dbUser.save();
