@@ -64,7 +64,7 @@ class Update extends React.Component {
 
 Update.propTypes = {
     updateUsername: PropTypes.func.isRequired,
-    // eslint-disable-next-line react/forbid-prop-types
+    // eslint-disable-next-line react/no-unused-prop-types,react/forbid-prop-types
     auth: PropTypes.object.isRequired
 };
 
