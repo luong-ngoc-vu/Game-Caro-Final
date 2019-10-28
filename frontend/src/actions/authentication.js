@@ -1,5 +1,6 @@
 import axios from 'axios';
 import JwtDecode from 'jwt-decode';
+import queryString from "query-string";
 import {GET_ERRORS, SET_CURRENT_USER} from './types';
 import setAuthToken from '../setAuthToken';
 

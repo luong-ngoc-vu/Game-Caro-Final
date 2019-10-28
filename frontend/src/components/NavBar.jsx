@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {logoutUser} from '../actions/authentication';
+import '../App.css'
 
 class Navbar extends Component {
     onLogout(e) {
@@ -41,6 +42,11 @@ class Navbar extends Component {
                 <li className="nav-item">
                     <Link className="nav-link" to="/login">
                         Sign In
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to="/auth/google">
+                        Sign In With Google
                     </Link>
                 </li>
             </ul>

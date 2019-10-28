@@ -11,7 +11,7 @@ class Update extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            name: '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,15 +27,15 @@ class Update extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         // eslint-disable-next-line no-unused-vars
-        const {username} = this.state;
+        const {name} = this.state;
         // eslint-disable-next-line no-shadow
         const {updateUsername, history} = this.props;
-        const newUser = {username};
+        const newUser = {name};
         updateUsername(newUser, history);
     }
 
     render() {
-        const {username} = this.state;
+        const {name} = this.state;
 
         return (
             <div className="modal-body">
@@ -47,9 +47,9 @@ class Update extends React.Component {
                             <FormLabel>Input a new Username</FormLabel>
                             <FormControl
                                 type="text"
-                                name="username"
+                                name="name"
                                 onChange={this.handleInputChange}
-                                value={username}
+                                value={name}
                             />
                         </FormGroup>
                     </div>

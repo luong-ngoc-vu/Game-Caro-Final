@@ -19,7 +19,7 @@ class Register extends React.Component {
     constructor() {
         super();
         this.state = {
-            username: '',
+            name: '',
             email: '',
             password: '',
             errors: {}
@@ -30,11 +30,11 @@ class Register extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const {username ,email, password} = this.state;
+        const {name ,email, password} = this.state;
         // eslint-disable-next-line no-shadow
         const {registerUser, history} = this.props;
         const user = {
-            username,
+            name,
             email,
             password
         };
@@ -63,7 +63,7 @@ class Register extends React.Component {
 
     render() {
         // eslint-disable-next-line no-unused-vars
-        const {errors, email, password, username} = this.state;
+        const {errors, email, password, name} = this.state;
         return (
             <div className="modal-body">
                 <form onSubmit={this.handleSubmit}>
@@ -74,10 +74,10 @@ class Register extends React.Component {
                             <FormLabel>Username</FormLabel>
                             <FormControl
                                 type="text"
-                                name="username"
+                                name="name"
                                 placeholder="Enter username"
                                 onChange={this.handleInputChange}
-                                value={username}
+                                value={name}
                             />
                         </FormGroup>
                     </div>

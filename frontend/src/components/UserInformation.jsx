@@ -11,7 +11,7 @@ class UserInformation extends React.Component {
     render() {
         // eslint-disable-next-line react/destructuring-assignment
         const {user} = this.props.auth;
-        const {username, email} = user;
+        const {name, email} = user;
 
         return (
             <div className="modal-body">
@@ -23,8 +23,8 @@ class UserInformation extends React.Component {
                             <FormLabel>Username</FormLabel>
                             <FormControl
                                 type="text"
-                                name="username"
-                                value={username}
+                                name="name"
+                                value={name}
                                 readOnly
                             />
                         </FormGroup>

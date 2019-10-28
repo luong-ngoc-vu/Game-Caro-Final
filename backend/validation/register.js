@@ -3,7 +3,7 @@ const isEmpty = require('./isEmpty');
 
 module.exports = function validateRegisterInput(data) {
     let errors = {};
-    data.username = !isEmpty(data.username) ? data.username : '';
+    data.name = !isEmpty(data.name) ? data.name : '';
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
 
@@ -15,8 +15,8 @@ module.exports = function validateRegisterInput(data) {
         errors.email = 'Email is required';
     }
 
-    if (Validator.isEmpty(data.username)) {
-        errors.username = 'Username is required';
+    if (Validator.isEmpty(data.name)) {
+        errors.name = 'Name is required';
     }
 
     if (!Validator.isLength(data.password, {min: 6, max: 30})) {

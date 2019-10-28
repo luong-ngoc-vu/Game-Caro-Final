@@ -25,7 +25,7 @@ router.post('/register', function (req, res) {
         } else {
             const newUser = new User({
                 email: req.body.email,
-                username: req.body.username,
+                name: req.body.name,
                 password: req.body.password,
             });
 
@@ -72,7 +72,7 @@ router.post('/login', (req, res) => {
                         const payload = {
                             id: user._id,
                             email: user.email,
-                            username: user.username
+                            name: user.name
                         };
                         jwt.sign(payload, 'secret', {
                             expiresIn: 3600
@@ -93,6 +93,16 @@ router.post('/login', (req, res) => {
         });
 });
 
+router.get("/auth/google", passport.authenticate("google", {scope: ["profile", "email"]})
+);
+
+router.get("/auth/google/callback", passport.authenticate("google", {failureRedirect: "/", session: false}),
+    function (req, res) {
+        const token = req.user.token;
+        res.redirect("http://localhost:3000?token=" + token);
+    }
+);
+
 router.get('/me', passport.authenticate('jwt', {session: false}), async (req, res) => {
     const email = req.user.email;
     const dbUser = await User.findOne({email});
@@ -101,10 +111,10 @@ router.get('/me', passport.authenticate('jwt', {session: false}), async (req, re
 
 router.post('/me/update', passport.authenticate('jwt', {session: false}), async (req, res) => {
     const email = req.user.email;
-    const username = req.body.username;
+    const name = req.body.name;
 
     const dbUser = await User.findOne({email});
-    dbUser.username = username;
+    dbUser.name = name;
     try {
         await dbUser.save();
     } catch (e) {

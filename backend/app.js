@@ -12,8 +12,7 @@ mongoose.connect(db, {
 }).then(() => console.log("MongoDB successfully connected")).catch(err => console.log(err));
 
 const app = express();
-app.use(passport.initialize());
-require('./passport')(passport);
+require('./passport');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
