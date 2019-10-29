@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const passport = require('passport');
 const db = require('./db').mongoURI;
 
 const users = require('./routes/user');
@@ -12,6 +11,7 @@ mongoose.connect(db, {
 }).then(() => console.log("MongoDB successfully connected")).catch(err => console.log(err));
 
 const app = express();
+
 require('./passport');
 
 app.use(bodyParser.urlencoded({extended: false}));

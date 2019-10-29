@@ -2,14 +2,22 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {logoutUser} from '../actions/authentication';
+import {logoutUser, loginWithGoogle} from '../actions/authentication';
 import '../App.css'
 
 class Navbar extends Component {
     onLogout(e) {
         e.preventDefault();
-        // eslint-disable-next-line react/destructuring-assignment
-        this.props.logoutUser(this.props.history);
+        // eslint-disable-next-line no-shadow
+        const {logoutUser, history} = this.props;
+        logoutUser(history);
+    }
+
+    onGoogleClick(e) {
+        e.preventDefault();
+        // eslint-disable-next-line no-shadow
+        const {loginWithGoogle} = this.props;
+        loginWithGoogle();
     }
 
     render() {
@@ -45,9 +53,9 @@ class Navbar extends Component {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/auth/google">
-                        Sign In With Google
-                    </Link>
+                    <a href="/" className="nav-link" onClick={this.onGoogleClick.bind(this)}>
+                        Google
+                    </a>
                 </li>
             </ul>
         );
@@ -66,15 +74,17 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
     logoutUser: PropTypes.func.isRequired,
+    loginWithGoogle: PropTypes.func.isRequired,
     // eslint-disable-next-line react/forbid-prop-types
     auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    errors: state.errors
 });
 
 export default connect(
     mapStateToProps,
-    {logoutUser}
+    {logoutUser, loginWithGoogle}
 )(withRouter(Navbar));

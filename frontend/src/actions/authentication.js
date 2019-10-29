@@ -1,6 +1,5 @@
 import axios from 'axios';
 import JwtDecode from 'jwt-decode';
-import queryString from "query-string";
 import {GET_ERRORS, SET_CURRENT_USER} from './types';
 import setAuthToken from '../setAuthToken';
 
@@ -40,6 +39,19 @@ export const loginUser = (user) => dispatch => {
         });
 };
 
+export const loginWithGoogle = (history) => dispatch => {
+    axios.get('/api/users/auth/google', history)
+        .then(res => {
+            const {token} = res.data;
+            localStorage.setItem("jwtToken", token);
+            setAuthToken(token);
+            const decoded = JwtDecode(token);
+            dispatch(setCurrentUser(decoded));
+        })
+        // eslint-disable-next-line no-console
+        .catch(err => console.log(`Error ${err}`));
+};
+
 export const updateUsername = (user, history) => dispatch => {
     axios.post('/api/users/me/update', user)
     // eslint-disable-next-line no-unused-vars
@@ -59,4 +71,3 @@ export const logoutUser = (history) => dispatch => {
     dispatch(setCurrentUser({}));
     history.push('/login');
 };
-
