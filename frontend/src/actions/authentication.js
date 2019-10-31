@@ -39,8 +39,8 @@ export const loginUser = (user) => dispatch => {
         });
 };
 
-export const loginWithGoogle = (history) => dispatch => {
-    axios.get('/api/users/auth/google', history)
+export const loginWithGoogle = () => dispatch => {
+    axios.get('/api/users/auth/google')
         .then(res => {
             const {token} = res.data;
             localStorage.setItem("jwtToken", token);
@@ -54,6 +54,30 @@ export const loginWithGoogle = (history) => dispatch => {
 
 export const updateUsername = (user, history) => dispatch => {
     axios.post('/api/users/me/update', user)
+    // eslint-disable-next-line no-unused-vars
+        .then(res => history.push('/home'))
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            });
+        });
+};
+
+export const updatePassword = (user, history) => dispatch => {
+    axios.post('/api/users/me/update-password', user)
+    // eslint-disable-next-line no-unused-vars
+        .then(res => history.push('/home'))
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            });
+        });
+};
+
+export const uploadImage = (formData, history) => dispatch => {
+    axios.post('/api/users/uploadImage', formData)
     // eslint-disable-next-line no-unused-vars
         .then(res => history.push('/home'))
         .catch(err => {

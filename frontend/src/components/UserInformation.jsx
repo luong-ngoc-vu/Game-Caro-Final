@@ -11,7 +11,7 @@ class UserInformation extends React.Component {
     render() {
         // eslint-disable-next-line react/destructuring-assignment
         const {user} = this.props.auth;
-        const {name, email} = user;
+        const {name, email, profileImg} = user;
 
         return (
             <div className="modal-body">
@@ -40,6 +40,17 @@ class UserInformation extends React.Component {
                             />
                         </FormGroup>
                     </div>
+                    <div className="form-group">
+                        <FormGroup controlId="formBasicPassword">
+                            <FormLabel>Image Profile URL</FormLabel>
+                            <br/>
+                            <img
+                                style={{width: 300, height: 200}}
+                                src={profileImg}
+                                alt="new"
+                            />
+                        </FormGroup>
+                    </div>
                 </form>
             </div>
         );
@@ -47,6 +58,7 @@ class UserInformation extends React.Component {
 }
 
 UserInformation.propTypes = {
+    // eslint-disable-next-line react/no-unused-prop-types
     logoutUser: PropTypes.func.isRequired,
     // eslint-disable-next-line react/forbid-prop-types
     auth: PropTypes.object.isRequired

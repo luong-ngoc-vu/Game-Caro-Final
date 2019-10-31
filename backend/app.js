@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const db = require('./db').mongoURI;
+const cors = require('cors');
 
 const users = require('./routes/user');
 
@@ -16,7 +17,8 @@ require('./passport');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
+app.use(cors());
+app.use('/public', express.static('public'));
 app.use('/api/users', users);
 
 app.get('/', function (req, res) {

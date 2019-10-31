@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Dropdown} from "react-bootstrap";
 import {logoutUser, loginWithGoogle} from '../actions/authentication';
 import '../App.css'
 
@@ -26,18 +27,28 @@ class Navbar extends Component {
         const emailUser = user.email;
         const authLinks = (
             <ul className="navbar-nav ml-auto">
-                <Link className="nav-link" to="/game">
-                    Play Game
-                </Link>
-                <Link className="nav-link" to="/userInformation">
-                    User Information
-                </Link>
-                <Link className="nav-link" to='/update'>
-                    {emailUser}
-                </Link>
-                <a href="/" className="nav-link" onClick={this.onLogout.bind(this)}>
-                    Logout
-                </a>
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Manage Account
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="/userInformation">User Information</Dropdown.Item>
+                        <Dropdown.Item href="/update">{emailUser}</Dropdown.Item>
+                        <Dropdown.Item href="/updatePassword">Change Password</Dropdown.Item>
+                        <Dropdown.Item href="/uploadImage">Upload Image</Dropdown.Item>
+                        {/* eslint-disable-next-line react/jsx-no-bind */}
+                        <Dropdown.Item href="/" onClick={this.onLogout.bind(this)}>Logout</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+                <div>&nbsp;&nbsp;</div>
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Play Game
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="/game">Computer</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </ul>
         );
         const guestLinks = (

@@ -1,7 +1,7 @@
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const mongoose = require('mongoose');
-const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const passport = require('passport');
 const User = mongoose.model('users');
 const clientID = "986011408031-isjggsols6ipv1vgr2vlf2qi06d1703o.apps.googleusercontent.com";
@@ -27,7 +27,7 @@ passport.use(
     new GoogleStrategy({
         clientID: clientID,
         clientSecret: clientSecret,
-        callbackURL: callbackURL,
+        callbackURL: callbackURL
     }, (profile, done) => {
         if (profile.id) {
             User.findOne({googleId: profile.id})

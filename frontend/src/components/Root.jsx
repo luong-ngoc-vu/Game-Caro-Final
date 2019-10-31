@@ -13,6 +13,8 @@ import Home from './Home';
 import NavBar from './NavBar';
 import Update from './Update';
 import UserInformation from "./UserInformation";
+import UpdatePassword from "./UpdatePassword";
+import UploadImage from "./UploadImage";
 
 if (localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken);
@@ -38,6 +40,8 @@ const Root = () => (
                 <Route path="/game" component={Game}/>
                 <Route path="/update" component={Update}/>
                 <Route path="/userInformation" component={UserInformation}/>
+                <Route path="/updatePassword" component={UpdatePassword}/>
+                <Route path="/uploadImage" component={UploadImage}/>
             </Switch>
         </Router>
     </Provider>

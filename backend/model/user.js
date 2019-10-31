@@ -18,6 +18,9 @@ const UserSchema = new Schema({
     googleId: {
         type: String,
     },
+    profileImg: {
+        type: String
+    }
 });
 
 const User = mongoose.model('users', UserSchema);

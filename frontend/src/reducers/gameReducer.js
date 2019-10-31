@@ -82,7 +82,7 @@ const initialState = {
 const gameReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_SYMBOL: {
-            const {history, stepNumber, xIsNext, winner} = state;
+            const {history, stepNumber, xIsNext, winner, ascendingOrder} = state;
             const historyA = history.slice(0, stepNumber + 1);
             const current = historyA[historyA.length - 1];
             const squares = current.squares.slice();
@@ -98,7 +98,8 @@ const gameReducer = (state = initialState, action) => {
                 }]),
                 stepNumber: history.length,
                 xIsNext: !xIsNext,
-                winner: calculateWinner(squares)
+                winner: calculateWinner(squares),
+                ascendingOrder,
             };
         }
 
