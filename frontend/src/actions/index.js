@@ -4,23 +4,19 @@ export const RESET = 'RESET';
 export const TOGGLE_ORDER = 'TOGGLE_ORDER';
 
 export const addSymbol = (index, row, col) => ({
-  type: ADD_SYMBOL,
-  index, row, col
+    type: ADD_SYMBOL,
+    index, row, col
 });
 
 export const jumpToHistory = (move) => ({
-  type: JUMP_TO_HISTORY,
-  move
+    type: JUMP_TO_HISTORY,
+    move
 });
 
-export function reset() {
-  return {
+export const reset = () => ({
     type: RESET
-  };
-}
+});
 
-export function toggleOrder() {
-  return {
+export const toggleOrder = () => ({
     type: TOGGLE_ORDER
-  };
-}
+});

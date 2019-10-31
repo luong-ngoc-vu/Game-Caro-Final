@@ -59,6 +59,14 @@ ol, ul {
     margin-bottom: 10px;
 }
 
+.withBorder {
+    text-align: center;
+    color: #000;
+    border: solid 2px #00B7FF;
+    padding: 12px 12px 12px 12px;
+    margin: 0px 0px 10px 0;
+}
+
 .div-style {
     font-size: 22px;
     font-weight: bold;

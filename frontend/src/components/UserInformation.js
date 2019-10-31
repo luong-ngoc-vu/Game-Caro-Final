@@ -44,11 +44,13 @@ class UserInformation extends React.Component {
                         <FormGroup controlId="formBasicPassword">
                             <FormLabel>Image Profile URL</FormLabel>
                             <br/>
-                            <img
-                                style={{width: 300, height: 200}}
-                                src={profileImg}
-                                alt="new"
-                            />
+                            <div className="withBorder">
+                                <img
+                                    style={{width: 300, height: 200}}
+                                    src={profileImg}
+                                    alt="new"
+                                />
+                            </div>
                         </FormGroup>
                     </div>
                 </form>

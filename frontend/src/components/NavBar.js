@@ -3,7 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Dropdown} from "react-bootstrap";
-import {logoutUser, loginWithGoogle} from '../actions/authentication';
+import {logoutUser} from '../actions/authentication';
 import '../App.css'
 
 class Navbar extends Component {
@@ -14,13 +14,6 @@ class Navbar extends Component {
         logoutUser(history);
     }
 
-    onGoogleClick(e) {
-        e.preventDefault();
-        // eslint-disable-next-line no-shadow
-        const {loginWithGoogle} = this.props;
-        loginWithGoogle();
-    }
-
     render() {
         // eslint-disable-next-line react/destructuring-assignment
         const {isAuthenticated, user} = this.props.auth;
@@ -28,7 +21,7 @@ class Navbar extends Component {
         const authLinks = (
             <ul className="navbar-nav ml-auto">
                 <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <Dropdown.Toggle variant="primary" id="dropdown-basic">
                         Manage Account
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -42,11 +35,12 @@ class Navbar extends Component {
                 </Dropdown>
                 <div>&nbsp;&nbsp;</div>
                 <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <Dropdown.Toggle variant="primary" id="dropdown-basic">
                         Play Game
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item href="/game">Computer</Dropdown.Item>
+                        <Dropdown.Item href="/playWithComputer">With Computer</Dropdown.Item>
+                        <Dropdown.Item href="/playOnline">Play Online</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </ul>
@@ -62,11 +56,6 @@ class Navbar extends Component {
                     <Link className="nav-link" to="/login">
                         Sign In
                     </Link>
-                </li>
-                <li className="nav-item">
-                    <a href="/" className="nav-link" onClick={this.onGoogleClick.bind(this)}>
-                        Google
-                    </a>
                 </li>
             </ul>
         );
@@ -85,7 +74,6 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
     logoutUser: PropTypes.func.isRequired,
-    loginWithGoogle: PropTypes.func.isRequired,
     // eslint-disable-next-line react/forbid-prop-types
     auth: PropTypes.object.isRequired
 };
@@ -97,5 +85,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {logoutUser, loginWithGoogle}
+    {logoutUser}
 )(withRouter(Navbar));
