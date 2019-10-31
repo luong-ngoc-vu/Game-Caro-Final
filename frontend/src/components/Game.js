@@ -2,12 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Board from './Board';
 import '../index.css';
-import * as action from '../actions/index';
+import * as action from '../actions';
 
 class Game extends React.Component {
     render() {
         const {history, stepNumber, xIsNext, winner, addSymbol, reset, ascendingOrder, toggleOrder} = this.props;
         const current = history[stepNumber];
+
         const moves = history.map((step, move) => {
             const desc = move ?
                 `Go to move #${move}` :
@@ -54,7 +55,8 @@ class Game extends React.Component {
                     <ol>{moves}</ol>
                     <br/>
                     <div>
-                        <button type="button" className="button-style" onClick={toggleOrder}>Change</button>
+                        <button type="button" className="button-style" onClick={toggleOrder}>Change order</button>
+                        <div/>
                         <button type="button" className="button-style" onClick={reset}>Reset</button>
                     </div>
                     <br/>

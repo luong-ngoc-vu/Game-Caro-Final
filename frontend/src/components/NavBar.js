@@ -6,7 +6,7 @@ import {Dropdown} from "react-bootstrap";
 import {logoutUser} from '../actions/authentication';
 import '../App.css'
 
-class Navbar extends Component {
+class NavBar extends Component {
     onLogout(e) {
         e.preventDefault();
         // eslint-disable-next-line no-shadow
@@ -40,7 +40,6 @@ class Navbar extends Component {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item href="/playWithComputer">With Computer</Dropdown.Item>
-                        <Dropdown.Item href="/playOnline">Play Online</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </ul>
@@ -60,7 +59,7 @@ class Navbar extends Component {
             </ul>
         );
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-light bg-warning">
                 <Link className="navbar-brand" to="/home">
                     Game Caro Online
                 </Link>
@@ -72,7 +71,7 @@ class Navbar extends Component {
     }
 }
 
-Navbar.propTypes = {
+NavBar.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     // eslint-disable-next-line react/forbid-prop-types
     auth: PropTypes.object.isRequired
@@ -86,4 +85,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     {logoutUser}
-)(withRouter(Navbar));
+)(withRouter(NavBar));
