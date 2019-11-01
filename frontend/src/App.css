@@ -70,10 +70,11 @@ ol, ul {
 .div-style {
     font-size: 22px;
     font-weight: bold;
+    color: blue;
 }
 
 .button-style {
-    width: 200px;
+    width: 120px;
     height: 30px;
 }
 
@@ -91,7 +92,7 @@ ol, ul {
 
 .square {
     background: #fff;
-    border: 1px solid #999;
+    border: 1px solid #6c757d;
     float: left;
     font-size: 28px;
     font-weight: bold;
@@ -101,6 +102,7 @@ ol, ul {
     margin-top: -1px;
     padding: 0;
     text-align: center;
+    align-items: center;
     width: 28px;
 }
 
@@ -115,6 +117,9 @@ ol, ul {
 .game {
     display: flex;
     flex-direction: row;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .game-info {

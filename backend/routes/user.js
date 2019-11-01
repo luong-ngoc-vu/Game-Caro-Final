@@ -98,14 +98,6 @@ router.post('/login', (req, res) => {
         });
 });
 
-router.get('/auth/google', passport.authenticate('google', {
-    scope: ['profile', 'email'], session: false
-}));
-
-router.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/'}), (req, res) => {
-    res.redirect('/userInformation');
-});
-
 router.get('/me', passport.authenticate('jwt', {session: false}), async (req, res) => {
     const email = req.user.email;
     const dbUser = await User.findOne({email});

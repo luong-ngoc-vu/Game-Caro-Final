@@ -1,6 +1,6 @@
-import {ADD_SYMBOL, JUMP_TO_HISTORY, RESET, TOGGLE_ORDER} from '../actions';
+import {JUMP_TO_HISTORY, RESET, TOGGLE_ORDER, SAVE_HISTORY, SET_WINNER} from '../actions';
 
-function calculateWinner(squares) {
+export function calculateWinner(squares) {
     // Check row
     for (let i = 0; i < 20; i += 1) {
         for (let j = 0; j < 20; j += 1) {
@@ -76,42 +76,22 @@ const initialState = {
     stepNumber: 0,
     xIsNext: true,
     winner: null,
-    ascendingOrder: true
+    ascendingOrder: false
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_SYMBOL: {
-            const {history, stepNumber, xIsNext, winner} = state;
-            const historyA = history.slice(0, stepNumber + 1);
-            const current = historyA[historyA.length - 1];
-            const squares = current.squares.slice();
-
-            if (winner || squares[action.index]) {
-                return state;
-            }
-            squares[action.index] = xIsNext ? 'X' : 'O';
-            return {
-                history: history.concat([{
-                    squares,
-                    clicked: [action.row, action.col]
-                }]),
-                stepNumber: history.length,
-                xIsNext: !xIsNext,
-                winner: calculateWinner(squares)
-            };
-        }
-
         case JUMP_TO_HISTORY: {
             return {
                 ...state,
                 stepNumber: action.step,
-                xIsNext: !((action.step % 2))
+                xIsNext: (action.step % 2) === 0,
             };
         }
 
         case RESET: {
             return {
+                ...state,
                 history: [
                     {
                         squares: Array(20 * 20).fill(null),
@@ -120,7 +100,6 @@ const reducer = (state = initialState, action) => {
                 ],
                 stepNumber: 0,
                 xIsNext: true,
-                winner: null,
                 ascendingOrder: true
             };
         }
@@ -133,6 +112,17 @@ const reducer = (state = initialState, action) => {
             };
         }
 
+        case SAVE_HISTORY: {
+            return {
+                ...state,
+                history: action.history.concat([{
+                    squares: action.squares,
+                    clicked: [action.row, action.col]
+                }]),
+                stepNumber: action.history.length,
+                xIsNext: !state.xIsNext,
+            };
+        }
         default:
             return state;
     }
