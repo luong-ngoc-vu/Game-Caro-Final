@@ -20,7 +20,7 @@ class UserInformation extends React.Component {
                     <br/>
                     <div className="form-group">
                         <FormGroup controlId="formBasicPassword">
-                            <FormLabel>Username</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Username</FormLabel>
                             <FormControl
                                 type="text"
                                 name="name"
@@ -31,7 +31,7 @@ class UserInformation extends React.Component {
                     </div>
                     <div className="form-group">
                         <FormGroup controlId="formBasicPassword">
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Email</FormLabel>
                             <FormControl
                                 type="email"
                                 name="email"
@@ -42,7 +42,7 @@ class UserInformation extends React.Component {
                     </div>
                     <div className="form-group">
                         <FormGroup controlId="formBasicPassword">
-                            <FormLabel>Image Profile URL</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Image Profile</FormLabel>
                             <br/>
                             <div className="withBorder">
                                 <img

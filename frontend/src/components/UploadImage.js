@@ -33,6 +33,8 @@ class UploadImage extends React.Component {
     }
 
     render() {
+        const {user} = this.props.auth;
+        const {profileImg} = user;
         return (
             <div className="modal-body">
                 <form onSubmit={this.handleSubmit}>
@@ -40,7 +42,20 @@ class UploadImage extends React.Component {
                     <br/>
                     <div className="form-group">
                         <FormGroup controlId="formBasicPassword">
-                            <FormLabel>Upload an image</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Old Profile Image</FormLabel>
+                            <br/>
+                            <div className="withBorder">
+                                <img
+                                    style={{width: 300, height: 200}}
+                                    src={profileImg}
+                                    alt="new"
+                                />
+                            </div>
+                        </FormGroup>
+                    </div>
+                    <div className="form-group">
+                        <FormGroup controlId="formBasicPassword">
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Upload a new image</FormLabel>
                             <FormControl
                                 type="file"
                                 onChange={this.onFileChange}

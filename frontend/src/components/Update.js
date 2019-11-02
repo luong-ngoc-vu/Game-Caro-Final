@@ -35,6 +35,9 @@ class Update extends React.Component {
     }
 
     render() {
+        // eslint-disable-next-line react/destructuring-assignment
+        const {user} = this.props.auth;
+
         const {name} = this.state;
 
         return (
@@ -44,7 +47,17 @@ class Update extends React.Component {
                     <br/>
                     <div className="form-group">
                         <FormGroup controlId="formBasicPassword">
-                            <FormLabel>Input a new Username</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Old Username</FormLabel>
+                            <FormControl
+                                type="text"
+                                value={user.name}
+                                readOnly
+                            />
+                        </FormGroup>
+                    </div>
+                    <div className="form-group">
+                        <FormGroup controlId="formBasicPassword">
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Input a new Username</FormLabel>
                             <FormControl
                                 type="text"
                                 name="name"

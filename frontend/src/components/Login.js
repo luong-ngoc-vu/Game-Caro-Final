@@ -61,7 +61,7 @@ class Login extends React.Component {
                     <br/>
                     <div className="form-group">
                         <FormGroup controlId="formBasicEmail">
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Email</FormLabel>
                             <FormControl
                                 type="email"
                                 name="email"
@@ -79,7 +79,7 @@ class Login extends React.Component {
                     </div>
                     <div className="form-group">
                         <FormGroup controlId="formBasicPassword">
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Password</FormLabel>
                             <FormControl
                                 type="password"
                                 name="password"
@@ -96,7 +96,7 @@ class Login extends React.Component {
                         </FormGroup>
                     </div>
                     <Button className="primary right-w3l" type="submit">
-                        Log In
+                        Sign In
                     </Button>
                 </form>
             </div>

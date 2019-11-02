@@ -41,19 +41,6 @@ export const loginUser = (user) => dispatch => {
         });
 };
 
-export const loginWithFacebook = () => dispatch => {
-    axios.get('/api/users/auth/facebook')
-        .then(res => {
-            const {token} = res.data;
-            localStorage.setItem("jwtToken", token);
-            setAuthToken(token);
-            const decoded = JwtDecode(token);
-            dispatch(setCurrentUser(decoded));
-        })
-        // eslint-disable-next-line no-console
-        .catch(err => console.log(`Error ${err}`));
-};
-
 export const updateUsername = (user, history) => dispatch => {
     axios.post('/api/users/me/update', user)
     // eslint-disable-next-line no-unused-vars

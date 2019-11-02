@@ -20,21 +20,23 @@ passport.use(new JWTStrategy(opts, (jwt_payload, done) => {
 }));
 
 passport.serializeUser(function (user, done) {
-    done(null, user);
+    done(null, user.id);
 });
 
-passport.deserializeUser(function (obj, done) {
-    done(null, obj);
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
+        done(err, user);
+    });
 });
-
 
 passport.use(new FacebookStrategy({
-    clientID: '607721983380145',
-    clientSecret: 'fb91598a10de07dab412e94a23bb5cc5',
-    callbackURL: '/auth/facebook/callback'
+    clientID: '2404011263146464',
+    clientSecret: '05be891d2222043f21e5c6201149074b',
+    callbackURL: '/auth/facebook/callback',
+    proxy: true
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        if (await User.findOne({'facebook_id': profile.id})) return console.log('This account is already registered!');
+        if (await User.findOne({'facebookId': profile.id})) return console.log('This account is already registered!');
         const email = profile.emails[0].value;
         const {id: facebookId, displayName: name} = profile;
         const user = await User.create({

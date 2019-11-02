@@ -45,7 +45,7 @@ class UpdatePassword extends React.Component {
                     <br/>
                     <div className="form-group">
                         <FormGroup controlId="formBasicPassword">
-                            <FormLabel>Input old password</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Input old password</FormLabel>
                             <FormControl
                                 type="password"
                                 name="oldpassword"
@@ -56,7 +56,7 @@ class UpdatePassword extends React.Component {
                     </div>
                     <div className="form-group">
                         <FormGroup controlId="formBasicPassword">
-                            <FormLabel>Input a new password</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Input a new password</FormLabel>
                             <FormControl
                                 type="password"
                                 name="password"

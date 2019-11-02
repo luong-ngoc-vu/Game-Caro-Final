@@ -98,13 +98,6 @@ router.post('/login', (req, res) => {
         });
 });
 
-router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
-
-router.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    successRedirect: '/userInformation',
-    failureRedirect: '/'
-}));
-
 router.get('/me', passport.authenticate('jwt', {session: false}), async (req, res) => {
     const email = req.user.email;
     const dbUser = await User.findOne({email});
@@ -183,21 +176,20 @@ const upload = multer({
     }
 });
 
-router.post('/uploadImage', passport.authenticate('jwt', {session: false}),
-    upload.single('profileImg'), async (req, res, next) => {
+router.post('/uploadImage', passport.authenticate('jwt', {session: false}), upload.single('profileImg'), async (req, res, next) => {
 
-        const email = req.user.email;
-        const fileName = req.file.filename;
+    const email = req.user.email;
+    const fileName = req.file.filename;
 
-        const user = await User.findOne({email});
+    const user = await User.findOne({email});
 
-        const url = req.protocol + '://' + req.get('host');
-        user.profileImg = url + '/public/' + fileName;
-        try {
-            await user.save();
-        } catch (e) {
-            return res.status(400).json(e);
-        }
-    });
+    const url = req.protocol + '://' + req.get('host');
+    user.profileImg = url + '/public/' + fileName;
+    try {
+        await user.save();
+    } catch (e) {
+        return res.status(400).json(e);
+    }
+});
 
 module.exports = router;

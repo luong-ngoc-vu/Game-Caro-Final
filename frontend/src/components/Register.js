@@ -30,7 +30,7 @@ class Register extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const {name ,email, password} = this.state;
+        const {name, email, password} = this.state;
         // eslint-disable-next-line no-shadow
         const {registerUser, history} = this.props;
         const user = {
@@ -71,7 +71,7 @@ class Register extends React.Component {
                     <br/>
                     <div className="form-group">
                         <FormGroup controlId="formBasicEmail">
-                            <FormLabel>Username</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Username</FormLabel>
                             <FormControl
                                 type="text"
                                 name="name"
@@ -83,7 +83,7 @@ class Register extends React.Component {
                     </div>
                     <div className="form-group">
                         <FormGroup controlId="formBasicEmail">
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Email</FormLabel>
                             <FormControl
                                 type="email"
                                 name="email"
@@ -101,7 +101,7 @@ class Register extends React.Component {
                     </div>
                     <div className="form-group">
                         <FormGroup controlId="formBasicPassword">
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Password</FormLabel>
                             <FormControl
                                 type="password"
                                 name="password"

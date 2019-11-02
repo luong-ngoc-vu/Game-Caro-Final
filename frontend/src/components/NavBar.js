@@ -1,12 +1,19 @@
 import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {Link, withRouter, Redirect} from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Dropdown} from "react-bootstrap";
-import {logoutUser, loginWithFacebook} from '../actions/authentication';
+import {logoutUser} from '../actions/authentication';
 import '../App.css'
 
 class NavBar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {loggedInFB: false, nameFB: '', emailFB: ''};
+    }
+
+
     onLogout(e) {
         e.preventDefault();
         // eslint-disable-next-line no-shadow
@@ -14,14 +21,20 @@ class NavBar extends Component {
         logoutUser(history);
     }
 
-    onClickFacebook(e) {
-        e.preventDefault();
-        // eslint-disable-next-line no-shadow
-        const {loginWithFacebook} = this.props;
-        loginWithFacebook();
-    }
-
     render() {
+        const responseFacebook = (response) => {
+            const payload = {
+                id: response.id,
+                name: response.name,
+                email: response.email,
+                token: response.accessToken,
+                picture: response.picture
+
+            };
+            this.setState({loggedInFB: true, nameFB: payload.name, emailFB: payload.email});
+        };
+
+        const {loggedInFB, nameFB, emailFB} = this.state;
         // eslint-disable-next-line react/destructuring-assignment
         const {isAuthenticated, user} = this.props.auth;
         const emailUser = user.email;
@@ -51,30 +64,54 @@ class NavBar extends Component {
                 </Dropdown>
             </ul>
         );
+
         const guestLinks = (
             <ul className="navbar-nav ml-auto">
+                {!loggedInFB ?
+                    <Dropdown>
+                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                            Login as
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <li className="nav-item">
+                                <FacebookLogin
+                                    appId="2404011263146464"
+                                    fields="name,email,picture"
+                                    autoload={false}
+                                    callback={responseFacebook}
+                                    icon="fa-facebook" size="small" cssClass="button-facebook-login"
+                                />
+                            </li>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    :
+                    <ul className="navbar-nav ml-auto">
+                        <Link className="nav-link" to="/" style={{fontSize: 15, fontWeight: "bold"}}>
+                            Name player : {nameFB}
+                        </Link>
+                        <Link className="nav-link" to="/" style={{fontSize: 15, fontWeight: "bold"}}>
+                            Email : {emailFB}
+                        </Link>
+                        <Redirect to='/playWithComputer'/>
+                    </ul>
+                }
+                <div>&nbsp;&nbsp;</div>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/register">
+                    <Link className="nav-link" to="/register" style={{fontSize: 15}}>
                         Register
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/login">
+                    <Link className="nav-link" to="/login" style={{fontSize: 15}}>
                         Sign In
-                    </Link>
-                </li>
-                <li className="nav-item">
-                    {/* eslint-disable-next-line react/jsx-no-bind */}
-                    <Link className="nav-link" to="/auth/facebook" onClick={this.onClickFacebook.bind(this)}>
-                        Facebook
                     </Link>
                 </li>
             </ul>
         );
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-warning">
-                <Link className="navbar-brand" to="/home">
-                    Game Caro Online
+                <Link className="navbar-brand" to="/home" style={{fontSize: 25, fontWeight: "bold"}}>
+                    Game Caro Vietnam
                 </Link>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     {isAuthenticated ? authLinks : guestLinks}
@@ -86,7 +123,6 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
     logoutUser: PropTypes.func.isRequired,
-    loginWithFacebook: PropTypes.func.isRequired,
     // eslint-disable-next-line react/forbid-prop-types
     auth: PropTypes.object.isRequired
 };
@@ -98,5 +134,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {logoutUser, loginWithFacebook}
+    {logoutUser}
 )(withRouter(NavBar));
