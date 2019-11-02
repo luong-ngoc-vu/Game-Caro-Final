@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Board from './Board';
 import '../index.css';
 import * as action from '../actions';
+import Board, {ComputerTurn} from './Board';
 import {calculateWinner} from '../reducers/gameReducer';
 
 class Game extends React.Component {
-    handleClick(i, row, col) {
+    handleClick(i) {
         const {history, stepNumber, xIsNext, saveHistory} = this.props;
         const historyA = history.slice(0, stepNumber + 1);
         const current = historyA[historyA.length - 1];
@@ -15,31 +15,29 @@ class Game extends React.Component {
             return;
         }
         squares[i] = xIsNext ? 'X' : 'O';
-        saveHistory(i, row, col, squares, history);
-
+        saveHistory(i, squares, history);
     }
 
     render() {
         const {history, stepNumber, xIsNext, ascendingOrder, reset, jumpToHistory, toggleOrder} = this.props;
         const current = history[stepNumber];
-        const winner = calculateWinner(current.squares);
+        const {squares} = current;
+
+        if (ComputerTurn(squares) !== -1 && !xIsNext)
+            this.handleClick(ComputerTurn(squares));
+
+        const winner = calculateWinner(squares);
         const moves = history.map((step, move) => {
             const desc = move ?
                 `Go to move #${move}` :
                 'Go to game start';
-            let row = null;
-            let col = null;
 
-            if (move) {
-                row = `[${history[move].clicked[0]}, `;
-                col = `${history[move].clicked[1]}]`;
-            }
             const isBold = (move === stepNumber ? 'bold' : '');
 
             return (
                 <li key={move}>
                     <button type="button" className={isBold}
-                            onClick={() => jumpToHistory(move)}>{desc}{row}{col}</button>
+                            onClick={() => jumpToHistory(move)}>{desc}</button>
                 </li>
             );
         });
@@ -64,7 +62,7 @@ class Game extends React.Component {
                 <div className="game-board">
                     <Board
                         squares={current.squares}
-                        onClick={(i, row, col) => this.handleClick(i, row, col)}
+                        onClick={(i) => this.handleClick(i)}
                         winningSquares={winner ? winner.position : []}
                     />
                 </div>
@@ -97,7 +95,7 @@ const mapDispatchToProps = (dispatch) => ({
     reset: () => dispatch(action.reset()),
     toggleOrder: () => dispatch(action.toggleOrder()),
     jumpToHistory: (move) => dispatch(action.jumpToHistory(move)),
-    saveHistory: (i, row, col, squares, history) => dispatch(action.saveHistory(i, row, col, squares, history))
+    saveHistory: (i, squares, history) => dispatch(action.saveHistory(i, squares, history))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

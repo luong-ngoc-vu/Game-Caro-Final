@@ -3,7 +3,6 @@ export const JUMP_TO_HISTORY = 'JUMP_TO_HISTORY';
 export const RESET = 'RESET';
 export const TOGGLE_ORDER = 'TOGGLE_ORDER';
 export const SAVE_HISTORY = 'SAVE_HISTORY';
-export const SET_WINNER = 'SET_WINNER';
 
 export const jumpToHistory = (step) => ({
     type: JUMP_TO_HISTORY,
@@ -18,7 +17,7 @@ export const toggleOrder = () => ({
     type: TOGGLE_ORDER
 });
 
-export const saveHistory = (i, row, col, squares, history) => ({
+export const saveHistory = (i, squares, history) => ({
     type: SAVE_HISTORY,
-    i, row, col, squares, history
+    i, squares, history
 });

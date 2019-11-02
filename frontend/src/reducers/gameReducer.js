@@ -1,4 +1,4 @@
-import {JUMP_TO_HISTORY, RESET, TOGGLE_ORDER, SAVE_HISTORY, SET_WINNER} from '../actions';
+import {JUMP_TO_HISTORY, RESET, TOGGLE_ORDER, SAVE_HISTORY} from '../actions';
 
 export function calculateWinner(squares) {
     // Check row
@@ -71,7 +71,6 @@ export function calculateWinner(squares) {
 const initialState = {
     history: [{
         squares: Array(20 * 20).fill(null),
-        clicked: null
     }],
     stepNumber: 0,
     xIsNext: true,
@@ -95,7 +94,6 @@ const reducer = (state = initialState, action) => {
                 history: [
                     {
                         squares: Array(20 * 20).fill(null),
-                        clicked: null
                     }
                 ],
                 stepNumber: 0,
@@ -117,12 +115,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 history: action.history.concat([{
                     squares: action.squares,
-                    clicked: [action.row, action.col]
                 }]),
                 stepNumber: action.history.length,
                 xIsNext: !state.xIsNext,
             };
         }
+
         default:
             return state;
     }

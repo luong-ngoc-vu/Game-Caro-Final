@@ -98,6 +98,13 @@ router.post('/login', (req, res) => {
         });
 });
 
+router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    successRedirect: '/userInformation',
+    failureRedirect: '/'
+}));
+
 router.get('/me', passport.authenticate('jwt', {session: false}), async (req, res) => {
     const email = req.user.email;
     const dbUser = await User.findOne({email});

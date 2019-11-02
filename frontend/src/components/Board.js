@@ -2,32 +2,51 @@ import React from 'react';
 import Square from './Square';
 import '../App.css';
 
+export const ComputerTurn = (squares) => {
+    for (let i = 0; i < squares.length; i += 1) {
+        const pos = Math.random() * (400) + 1;
+        if (squares[Math.ceil(pos)] === null) {
+            return Math.ceil(pos);
+        }
+    }
+    return -1;
+};
+
 class Board extends React.Component {
-    renderSquare(i, row, col) {
+    renderSquare(i) {
         const {squares, onClick, winningSquares} = this.props;
         return (
             <Square
                 value={squares[i]}
-                onClick={() => onClick(i, row, col)}
+                onClick={() => onClick(i)}
                 isWinning={winningSquares.includes(i)}
             />
         );
     }
 
-    render() {
+    renderRow(row) {
         const squares = [];
-        let num = 0;
-        let row = [];
-
-        for (let i = 0; i < 20; i += 1) {
-            row = [];
-            for (let j = 0; j < 20; j += 1) {
-                row.push(this.renderSquare(num, i, j));
-                num += 1;
-            }
-            squares.push(<div className="board-row">{row}</div>);
+        const offset = row * 20;
+        for (let s = 0; s < 20; s += 1) {
+            squares.push(
+                this.renderSquare(offset + s)
+            );
         }
-        return <div>{squares}</div>;
+        return (
+            <div className="board-row">
+                {squares}
+            </div>
+        )
+    }
+
+    render() {
+        const rows = [];
+        for (let r = 0; r < 20; r += 1) {
+            rows.push(
+                this.renderRow(r)
+            );
+        }
+        return <div>{rows}</div>;
     }
 }
 

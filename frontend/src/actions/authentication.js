@@ -3,6 +3,8 @@ import JwtDecode from 'jwt-decode';
 import {GET_ERRORS, SET_CURRENT_USER} from './types';
 import setAuthToken from '../setAuthToken';
 
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 export const setCurrentUser = decoded => {
     return {
         type: SET_CURRENT_USER,
@@ -39,8 +41,8 @@ export const loginUser = (user) => dispatch => {
         });
 };
 
-export const loginWithGoogle = () => dispatch => {
-    axios.get('/api/users/auth/google')
+export const loginWithFacebook = () => dispatch => {
+    axios.get('/api/users/auth/facebook')
         .then(res => {
             const {token} = res.data;
             localStorage.setItem("jwtToken", token);

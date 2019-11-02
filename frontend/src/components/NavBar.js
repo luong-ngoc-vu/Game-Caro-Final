@@ -3,7 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Dropdown} from "react-bootstrap";
-import {logoutUser} from '../actions/authentication';
+import {logoutUser, loginWithFacebook} from '../actions/authentication';
 import '../App.css'
 
 class NavBar extends Component {
@@ -12,6 +12,13 @@ class NavBar extends Component {
         // eslint-disable-next-line no-shadow
         const {logoutUser, history} = this.props;
         logoutUser(history);
+    }
+
+    onClickFacebook(e) {
+        e.preventDefault();
+        // eslint-disable-next-line no-shadow
+        const {loginWithFacebook} = this.props;
+        loginWithFacebook();
     }
 
     render() {
@@ -56,6 +63,12 @@ class NavBar extends Component {
                         Sign In
                     </Link>
                 </li>
+                <li className="nav-item">
+                    {/* eslint-disable-next-line react/jsx-no-bind */}
+                    <Link className="nav-link" to="/auth/facebook" onClick={this.onClickFacebook.bind(this)}>
+                        Facebook
+                    </Link>
+                </li>
             </ul>
         );
         return (
@@ -73,6 +86,7 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
     logoutUser: PropTypes.func.isRequired,
+    loginWithFacebook: PropTypes.func.isRequired,
     // eslint-disable-next-line react/forbid-prop-types
     auth: PropTypes.object.isRequired
 };
@@ -84,5 +98,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {logoutUser}
+    {logoutUser, loginWithFacebook}
 )(withRouter(NavBar));
