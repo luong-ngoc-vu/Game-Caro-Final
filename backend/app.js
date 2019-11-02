@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 app.use('/public', express.static('public'));
 app.use('/api/users', users);
-app.use('/api/users', proxy({target: "http://localhost:3000"}));
+app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
