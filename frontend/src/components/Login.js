@@ -57,7 +57,7 @@ class Login extends React.Component {
         return (
             <div className="modal-body">
                 <form onSubmit={this.handleSubmit}>
-                    <h2 className="h2">Login Form</h2>
+                    <h2 className="h2">Sign In Form</h2>
                     <br/>
                     <div className="form-group">
                         <FormGroup controlId="formBasicEmail">
