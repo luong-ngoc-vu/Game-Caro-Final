@@ -70,8 +70,8 @@ class Register extends React.Component {
                     <h2 className="h2">Register Form</h2>
                     <br/>
                     <div className="form-group">
-                        <FormGroup controlId="formBasicEmail">
-                            <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Username</FormLabel>
+                        <FormGroup>
+                                <FormLabel style={{fontSize: 20, fontWeight: "bold"}}>Username</FormLabel>
                             <FormControl
                                 type="text"
                                 name="name"

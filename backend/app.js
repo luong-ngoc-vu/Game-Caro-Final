@@ -2,19 +2,21 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
-const passport = require('passport');
 
-const db = require('./db').mongoURI;
+const urlConnection = require('./db').mongoURI;
 const cors = require('cors');
 
 const users = require('./routes/user');
-
-mongoose.connect(db, {
+mongoose.connect(urlConnection, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log("MongoDB successfully connected")).catch(err => console.log(err));
 
+
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+server.listen(5000);
 
 require('./passport');
 
