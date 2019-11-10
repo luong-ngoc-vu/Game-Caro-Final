@@ -14,9 +14,6 @@ mongoose.connect(urlConnection, {
 
 
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
-server.listen(5000);
 
 require('./passport');
 
@@ -32,7 +29,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
 });
 
-/* app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-}); */
+});

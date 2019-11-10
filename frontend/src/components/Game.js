@@ -84,11 +84,11 @@ class Game extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    history: state.history,
-    stepNumber: state.stepNumber,
-    xIsNext: state.xIsNext,
-    winner: state.winner,
-    ascendingOrder: state.ascendingOrder,
+    history: state.gameReducer.history,
+    stepNumber: state.gameReducer.stepNumber,
+    xIsNext: state.gameReducer.xIsNext,
+    winner: state.gameReducer.winner,
+    ascendingOrder: state.gameReducer.ascendingOrder,
 });
 
 const mapDispatchToProps = (dispatch) => ({
